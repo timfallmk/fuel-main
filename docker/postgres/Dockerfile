@@ -8,6 +8,8 @@ RUN rm -rf /etc/yum.repos.d/*; echo -e "[nailgun]\nname=Nailgun Local Repo\nbase
 ADD etc /etc
 ADD start.sh /usr/local/bin/start.sh
 
+VOLUME /var/lib/pgsql/data/
+
 RUN sed -i '/requiretty/s/^/#/g' /etc/sudoers;touch /etc/sysconfig/network;mkdir -p /var/lib/hiera && touch /var/lib/hiera/common.yaml
 
 RUN echo -e "[nailgun]\nname=Nailgun Local Repo\nbaseurl=file:/var/www/nailgun/centos/x86_64\ngpgcheck=0" > /etc/yum.repos.d/nailgun.repo;yum clean all;chmod +x /usr/local/bin/start.sh
